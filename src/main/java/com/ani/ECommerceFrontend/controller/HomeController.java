@@ -1,10 +1,17 @@
 package com.ani.ECommerceFrontend.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ani.ECommerceBackend.daoImpl.CategoryDaoImpl;
+
 @Controller
 public class HomeController {
+	@Autowired
+	CategoryDaoImpl categoryDaoImpl;
 public HomeController() {
 System.out.println("HomeController is loading");	// TODO Auto-generated constructor stub
 }
@@ -16,8 +23,9 @@ System.out.println("HomeController is loading");	// TODO Auto-generated construc
 	}
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~UserHomePageController~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
 	@RequestMapping("/userHomePage")
-	public String userHomePage()
+	public String userHomePage(HttpSession session)
 	{
+		session.setAttribute("catList",categoryDaoImpl.getCategoryList());
 		return "userHomePage";
 	}
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~UserAboutUsController~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

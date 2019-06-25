@@ -1,5 +1,9 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
@@ -25,14 +29,19 @@
       <a class="nav-link" href="userContactUs">Contact Us</a>
     </li>
     <!-- Dropdown -->
+    
     <li class="nav-item dropdown">
+   
       <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
         Products
       </a>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="showproducts">View Products</a>
-       
+     <c:forEach var="cat" items="${catList}">  
+        <a class="dropdown-item" href="showproducts?catName=${cat.categoryName}">${cat.categoryName}</a>
+      </c:forEach>  
+      
       </div>
+     
       <li class="nav-item">
       <a class="nav-link" href="cart">Cart</a>
     </li>

@@ -7,6 +7,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,7 +32,6 @@ public class CartController {
 	    {
 	Product product=productDaoImpl.getProduct(Integer.parseInt(request.getParameter("proId"))) ;
 	int quantity=Integer.parseInt(request.getParameter("qty"));
-	System.out.println("@@@@@@@@@@@@@@"+quantity);
 	String userName=(String)session.getAttribute("un");
 	cartDaoImpl.saveCart(product, quantity,userName);
 	return "userHomePage";
@@ -45,15 +47,6 @@ public class CartController {
 			modelAndView.addObject("cartList",list);
 		return modelAndView;
 	}
-	
-	/*@RequestMapping("/cart")
-	public ModelAndView recieveProductsData()
-	{
-			List<Cart> list=cartDaoImpl.getCartList();
-			ModelAndView modelAndView=new ModelAndView("userViewCart");
-			modelAndView.addObject("cartList",list);
-		return modelAndView;
-	}*/
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~DeleteCartController~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	@RequestMapping("/delCart")
@@ -64,6 +57,27 @@ public class CartController {
 		cartDaoImpl.deleteCart(cart);
 		
 		return "redirect:cart";
+	
 		
 	}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~EditCartController~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		@RequestMapping("/refresh")
+		public ModelAndView updateProductData()
+		{
+		Cart cart=new Cart();
+		  ModelAndView modelAndView=new ModelAndView("checkoutSnipp");
+		  modelAndView.addObject("cart",cart);
+			return modelAndView;
+		}
+		
+		@PostMapping(value="/refreshed")
+		public ModelAndView editCategoryData(@RequestParam("cartid")HttpServletRequest request)
+		{
+			ModelAndView modelAndView=new ModelAndView("userHomePage");
+			int quantity=Integer.parseInt(request.getParameter("qty"));
+			System.out.println("@@@@@@@@@@@@@@"+quantity);
+			
+			return modelAndView;
+		}
 }

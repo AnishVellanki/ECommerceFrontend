@@ -45,18 +45,18 @@
                                     <img alt="abc" src="resources/product-images/${c.productId}.jpg"  class="img-responsive"/></div>
                                     <div class="col-sm-10">
                                         
-                                        <p>${c.productName} <br>${c.productSupplier}</p>
+                                        <p>${c.productName} <br>${c.productSupplier}<br> ${c.quantity}</p>
                                     </div>
                                 </div>
                             </td>
                             <td data-th="Price">${c.productPrice}</td>
                             <td data-th="Quantity">
-                                <input type="number" class="form-control text-center" value="${c.quantity}">
+                                <input type="number" class="form-control text-center" name="qty">
                             </td>
                             <td data-th="Subtotal" class="text-center">${c.totalPrice}</td>
                             <c:set var="grandPrice" value="${grandPrice+c.totalPrice}"></c:set>
                             
-                            <td ><a href="refresh" class="actions" data-th="">
+                            <td ><a href="refreshed?cartid=${c.cartId}" class="actions" data-th="">
                                 <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button></a>
                                 <a href="deleteCartProduct?cart_id=${c.cartId}" class="actions" data-th="">
                                 delete</a>                            

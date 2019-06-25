@@ -14,6 +14,7 @@ import com.ani.ECommerceBackend.daoImpl.CartDaoImpl;
 import com.ani.ECommerceBackend.daoImpl.CategoryDaoImpl;
 import com.ani.ECommerceBackend.daoImpl.ProductDaoImpl;
 import com.ani.ECommerceBackend.daoImpl.SupplierDaoImpl;
+import com.ani.ECommerceBackend.model.Category;
 import com.ani.ECommerceBackend.model.Product;
 
 
@@ -35,11 +36,29 @@ public class userProductController {
     public userProductController() {
     System.out.println("userProductController is loading");    
     }
+
+	/*
+	 * @RequestMapping("/showproducts") public ModelAndView
+	 * goToShowProduct(@RequestParam() {
+	 * 
+	 * ModelAndView modelandview=new ModelAndView("userGrid"); List<Product>
+	 * listProduct = productDaoImpl.getProductList();
+	 * 
+	 * //List<Supplier> listSupplier = supplierDaoImpl.retrieveSupplierData();
+	 * 
+	 * 
+	 * //modelandview.addObject("supList", listSupplier);
+	 * 
+	 * 
+	 * modelandview.addObject("proList", listProduct); return modelandview; }
+	 */
     @RequestMapping("/showproducts")
-    public ModelAndView goToShowProduct()
+    public ModelAndView goToShowProduct(@RequestParam("catName") String categoryName)
     {
+    	System.out.println("from userProductController "+categoryName);
+    	
         ModelAndView modelandview=new ModelAndView("userGrid");
-           List<Product> listProduct = productDaoImpl.getProductList();
+           List<Product> listProduct = productDaoImpl.getSpecificProductList(categoryName);
           
            //List<Supplier> listSupplier = supplierDaoImpl.retrieveSupplierData();
                
